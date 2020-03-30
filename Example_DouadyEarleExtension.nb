@@ -1,0 +1,417 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16663,        409]
+NotebookOptionsPosition[     14381,        373]
+NotebookOutlinePosition[     14719,        388]
+CellTagsIndexPosition[     14676,        385]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Examples of the Douady-Earle extension", "Title",
+ CellChangeTimes->{{3.794157168157357*^9, 
+  3.794157178284322*^9}},ExpressionUUID->"3b0bf973-b215-4e29-b926-\
+12ec624fa3d6"],
+
+Cell["\<\
+--Jason Cantarella and Henrik Schumacher, Spring 2020 (Mathematica 12).\
+\>", "Text",
+ CellChangeTimes->{{3.794157182652028*^9, 
+  3.7941572004184303`*^9}},ExpressionUUID->"31457e8f-25bf-4b5a-9b09-\
+392e1632e983"],
+
+Cell["We start by loading the notebook:", "Text",
+ CellChangeTimes->{{3.794157585027965*^9, 
+  3.794157590581004*^9}},ExpressionUUID->"d5e50ac2-4989-4b33-9449-\
+caafff3a998b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Get", "[", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+      "\"\<ConformalBarycenter.m\>\""}], "}"}], "]"}], "]"}], ";"}]], "Input",\
+
+ CellChangeTimes->{{3.789815144644014*^9, 3.789815183336975*^9}, {
+  3.78981730169776*^9, 3.789817303514695*^9}, {3.78982323024411*^9, 
+  3.7898232390331697`*^9}, {3.790397698964304*^9, 3.790397699802781*^9}},
+ CellLabel->"In[38]:=",ExpressionUUID->"109635e0-c0a5-4779-9888-8a11340b527b"],
+
+Cell["\<\
+The first step is to create a mesh for the disk and some coordinate lines for \
+the mesh.\
+\>", "Text",
+ CellChangeTimes->{{3.794157605876587*^9, 3.794157631579514*^9}, {
+  3.794157675169345*^9, 
+  3.794157675545889*^9}},ExpressionUUID->"9d08c347-b264-4ec5-8f1a-\
+2fcbba3b44aa"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"disk", "=", 
+   RowBox[{"DouadyEarleDisk", "[", 
+    RowBox[{"Mesh", "->", "720"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"coordinatelines", "=", 
+   RowBox[{"DouadyEarleGrid", "[", "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"disk", ",", "coordinatelines"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.789823439636488*^9, 3.78982344688385*^9}, {
+  3.790397148232078*^9, 3.790397152407275*^9}, {3.790397716251162*^9, 
+  3.7903977228490458`*^9}, {3.794157636126424*^9, 3.794157667394638*^9}, {
+  3.794252245850204*^9, 3.7942522478322573`*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"b7132160-37b5-4f9c-bf36-01d1e528462c"],
+
+Cell["\<\
+If we define a map of the circle to itself, we can approximate the \
+Douady-Earle extension to the disk by sampling the map to create a discrete \
+measure on the boundary of the disk, and computing the extension for the grid \
+and the coordinate lines. 
+
+We start with the curve:\
+\>", "Text",
+ CellChangeTimes->{{3.794158617688072*^9, 3.7941587886322927`*^9}, 
+   3.794252368936936*^9},ExpressionUUID->"eb38d7a9-2656-4b8e-8d34-\
+7fe037732ad9"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"b", "=", "4"}], ";", 
+  RowBox[{"a", "=", 
+   RowBox[{
+    RowBox[{"1", "/", "b"}], " ", 
+    RowBox[{"4", "/", "8"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"\[Gamma]", "=", 
+   RowBox[{"t", "\[Function]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Cos", "[", 
+       RowBox[{"t", "+", 
+        RowBox[{"a", " ", 
+         RowBox[{"Sin", "[", 
+          RowBox[{"4", "t"}], "]"}]}]}], "]"}], ",", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"t", "+", 
+        RowBox[{"a", " ", 
+         RowBox[{"Sin", "[", 
+          RowBox[{"4", "t"}], "]"}]}]}], "]"}]}], "}"}]}]}], ";"}]}], "Input",\
+
+ CellChangeTimes->{{3.790393138829135*^9, 3.790393228426209*^9}, {
+  3.790393264395207*^9, 3.7903932645370417`*^9}, {3.790393431348864*^9, 
+  3.790393464473187*^9}, {3.790393505992662*^9, 3.790393507608622*^9}, {
+  3.790393543092997*^9, 3.790393543293811*^9}, {3.790397100667547*^9, 
+  3.7903971008968067`*^9}, {3.790397891620298*^9, 3.790397928322763*^9}, {
+  3.790398013920498*^9, 3.79039802718985*^9}, {3.790398250456127*^9, 
+  3.790398269835718*^9}, {3.794158758699067*^9, 3.794158774490076*^9}, {
+  3.794158868856263*^9, 3.79415888250928*^9}, {3.794252259265074*^9, 
+  3.794252264103016*^9}},
+ CellLabel->"In[42]:=",ExpressionUUID->"1af4cd5c-2fc1-4330-ba70-9c8bbea141ca"],
+
+Cell["Now we map to a grid:", "Text",
+ CellChangeTimes->{{3.794158793199119*^9, 
+  3.794158798135664*^9}},ExpressionUUID->"a543ba05-02dd-4d4b-a106-\
+4d09415af03d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"curvepts", "=", 
+   RowBox[{"\[Gamma]", "/@", 
+    RowBox[{"Subdivide", "[", 
+     RowBox[{"0.", ",", 
+      RowBox[{"2.", "Pi"}], ",", "2000"}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.794158803606833*^9, 3.794158811640995*^9}, 
+   3.7942522672982597`*^9},
+ CellLabel->"In[44]:=",ExpressionUUID->"87dc855f-dcf4-478d-ab1e-1bab645f090a"],
+
+Cell["\<\
+And last we compute the Extension for both the triangles in the disk mesh and \
+the coordinate lines:\
+\>", "Text",
+ CellChangeTimes->{{3.794158815567725*^9, 
+  3.794158834830472*^9}},ExpressionUUID->"548f8fb0-b1e7-4f15-9b7a-\
+236e9c056530"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"surface", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"disk", ",", "curvepts"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"grid", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"coordinatelines", ",", "curvepts"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"surface", ",", "grid"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7941588484061337`*^9, 3.794158849333857*^9}, {
+  3.794252268886462*^9, 3.794252270654524*^9}},
+ CellLabel->"In[45]:=",ExpressionUUID->"15b1e4ff-ed0a-4280-8d88-4f29562fa599"],
+
+Cell["\<\
+We can do the same with a space curve. Again, the curve has to lie on the \
+unit sphere for any parameter value, so one has to be a little careful \
+defining example:\
+\>", "Text",
+ CellChangeTimes->{{3.7941588999389477`*^9, 
+  3.794158943658413*^9}},ExpressionUUID->"eb152075-340d-46b4-877c-\
+66dc90cf03f5"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Gamma]", "=", 
+   RowBox[{"t", "\[Function]", 
+    RowBox[{"Evaluate", "@", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"a", ",", "b"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"b", "=", 
+         RowBox[{"1", "/", "3"}]}], ";", 
+        RowBox[{"a", "=", 
+         RowBox[{"1", "-", "b"}]}], ";", 
+        RowBox[{
+         RowBox[{"RotationMatrix", "[", 
+          RowBox[{
+           RowBox[{"Pi", "/", "4"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0", ",", "1"}], "}"}]}], "]"}], ".", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"a", " ", 
+             RowBox[{"Cos", "[", "t", "]"}]}], "+", 
+            RowBox[{"b", " ", 
+             RowBox[{"Cos", "[", 
+              RowBox[{"3", " ", "t"}], "]"}]}]}], ",", 
+           RowBox[{
+            RowBox[{"a", " ", 
+             RowBox[{"Sin", "[", "t", "]"}]}], "-", 
+            RowBox[{"b", " ", 
+             RowBox[{"Sin", "[", 
+              RowBox[{"3", " ", "t"}], "]"}]}]}], ",", 
+           RowBox[{"2", 
+            RowBox[{"Sqrt", "[", 
+             RowBox[{"a", " ", "b"}], "]"}], 
+            RowBox[{"Sin", "[", 
+             RowBox[{"2", " ", "t"}], "]"}]}]}], "}"}]}]}]}], 
+      "\[IndentingNewLine]", "]"}]}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"curvepts", "=", 
+   RowBox[{"\[Gamma]", "/@", 
+    RowBox[{"Subdivide", "[", 
+     RowBox[{"0.", ",", 
+      RowBox[{"2.", "Pi"}], ",", "2000"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ParametricPlot3D", "[", 
+  RowBox[{
+   RowBox[{"\[Gamma]", "[", "t", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", "0", ",", 
+     RowBox[{"2", "Pi"}]}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.78981656758074*^9, 3.789816571110035*^9}, 
+   3.789816605829232*^9, 3.78981664144486*^9, {3.789817136145376*^9, 
+   3.7898171467770977`*^9}, {3.789817880870566*^9, 3.789817885979803*^9}, {
+   3.7898235007465343`*^9, 3.789823528190143*^9}, {3.790397142065631*^9, 
+   3.7903971947092867`*^9}, {3.790397753963252*^9, 3.790397756055999*^9}, {
+   3.790397809192142*^9, 3.790397809799294*^9}, {3.790398031978115*^9, 
+   3.790398032333736*^9}, {3.790398219800112*^9, 3.7903982261744556`*^9}, {
+   3.794158948228541*^9, 3.794158968217271*^9}, {3.794252277891498*^9, 
+   3.794252303805746*^9}, {3.794252390612863*^9, 3.794252401752822*^9}, {
+   3.794252568092984*^9, 3.794252568428728*^9}},
+ CellLabel->"In[48]:=",ExpressionUUID->"42a07cb3-5650-40c5-85ba-b06a5ab85f97"],
+
+Cell[TextData[{
+ "We can now compute the Douady-Earle surface corresponding to this measure \
+inside ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["S", "2"], ":"}], TraditionalForm]],ExpressionUUID->
+  "0060a7a1-8dce-4cd6-8596-6a0d36710dd3"]
+}], "Text",
+ CellChangeTimes->{{3.7941590006014013`*^9, 
+  3.794159021912306*^9}},ExpressionUUID->"3d43ebc8-9750-4004-be52-\
+51b7a09ed997"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"disk", "=", 
+   RowBox[{"DouadyEarleDisk", "[", 
+    RowBox[{"Mesh", "\[Rule]", "720"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"surface", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"disk", ",", "curvepts", ",", 
+     RowBox[{"Verbose", "\[Rule]", "True"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"grid", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"coordinatelines", ",", "curvepts"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"surface", ",", "grid"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7941590293504047`*^9, 3.794159030263397*^9}, {
+  3.794249309590453*^9, 3.7942493102249327`*^9}, {3.794252312942545*^9, 
+  3.794252316444483*^9}, {3.794252408097857*^9, 3.7942524083038263`*^9}, {
+  3.794542524597376*^9, 3.7945425247935143`*^9}},
+ CellLabel->"In[51]:=",ExpressionUUID->"4d4a0206-4bf0-4990-aa66-d866b0bba240"],
+
+Cell["\<\
+Reducing the number of triangles in the mesh gives a faster computation, but \
+a cruder mesh:\
+\>", "Text",
+ CellChangeTimes->{{3.794159046285516*^9, 
+  3.794159090708783*^9}},ExpressionUUID->"72782387-daaf-433d-84f1-\
+c6084d3c431b"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"disk", "=", 
+   RowBox[{"DouadyEarleDisk", "[", 
+    RowBox[{"Mesh", "\[Rule]", "100"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"coordinatelines", "=", 
+   RowBox[{"DouadyEarleGrid", "[", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"surfaceCoarse", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"disk", ",", "curvepts", ",", 
+     RowBox[{"Verbose", "\[Rule]", "True"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gridCoarse", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"coordinatelines", ",", "curvepts"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"surfaceCoarse", ",", "gridCoarse"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7941590958131104`*^9, 3.79415913896589*^9}, {
+  3.7942492661105537`*^9, 3.7942492797960567`*^9}, {3.7942523184298363`*^9, 
+  3.7942523227803783`*^9}, {3.79425242657056*^9, 3.7942524269194183`*^9}, {
+  3.794542526003965*^9, 3.7945425262031612`*^9}},
+ CellLabel->"In[55]:=",ExpressionUUID->"7b566ade-8311-4352-baae-0f94a8770d24"],
+
+Cell["\<\
+We can also compute the surface with the Abikoff-Ye iteration. This takes \
+more time:\
+\>", "Text",
+ CellChangeTimes->{{3.794159163082075*^9, 
+  3.794159188584011*^9}},ExpressionUUID->"b63429d6-042c-48e6-a232-\
+9103977e45fa"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"disk", "=", 
+    RowBox[{"DouadyEarleDisk", "[", 
+     RowBox[{"Mesh", "\[Rule]", "720"}], "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"coordinatelines", "=", 
+   RowBox[{"DouadyEarleGrid", "[", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"surface2", "=", 
+   RowBox[{"DouadyEarleExtension", "[", 
+    RowBox[{"disk", ",", "curvepts", ",", "\[IndentingNewLine]", 
+     RowBox[{"Method", "\[Rule]", "\"\<AbikoffYe\>\""}], ",", 
+     RowBox[{"MaxIterations", "\[Rule]", "1000"}], ",", 
+     RowBox[{"Verbose", "\[Rule]", "True"}]}], "\[IndentingNewLine]", "]"}]}],
+   ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"surface2", ",", "grid"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7898166513602533`*^9, 3.789816660833426*^9}, {
+   3.789816701473915*^9, 3.789816705416819*^9}, {3.78981714166216*^9, 
+   3.789817142495895*^9}, {3.789817416092647*^9, 3.789817417877285*^9}, {
+   3.789817492628127*^9, 3.789817497794042*^9}, 3.789821610344643*^9, 
+   3.7898216579293222`*^9, {3.7898216909431343`*^9, 3.789821691059561*^9}, {
+   3.789821744741252*^9, 3.789821744849832*^9}, 3.789821934117976*^9, 
+   3.789821968756562*^9, {3.789823542472054*^9, 3.78982357393307*^9}, {
+   3.790397172360332*^9, 3.7903971736859493`*^9}, {3.79039726117071*^9, 
+   3.790397268697369*^9}, {3.7941592004188747`*^9, 3.794159212224675*^9}, {
+   3.794249182411626*^9, 3.7942491833116007`*^9}, {3.794252327324368*^9, 
+   3.794252338195606*^9}, {3.7942524525037193`*^9, 3.794252455183798*^9}, 
+   3.794252500920074*^9, {3.794542527947418*^9, 3.794542530128685*^9}},
+ CellLabel->"In[60]:=",ExpressionUUID->"0bc90499-135a-4e37-9593-8f4c9ad6c9ee"],
+
+Cell["\<\
+You can see the roughness in the picture above. But plotting the two surfaces \
+together shows the difference between the two more clearly.\
+\>", "Text",
+ CellChangeTimes->{{3.794249199863676*^9, 
+  3.794249231990613*^9}},ExpressionUUID->"90ea7f98-c62e-4c4d-9aaa-\
+989deb084155"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"MeshRegion", "[", 
+    RowBox[{"surface2", ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"Lighter", "@", "Orange"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", "surface", ",", "grid"}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.78982287517621*^9, 3.7898229413649263`*^9}, {
+   3.789823031037662*^9, 3.78982319945265*^9}, {3.789823971585631*^9, 
+   3.7898240056689577`*^9}, 3.790397285572549*^9, {3.790397462951891*^9, 
+   3.790397463722933*^9}, {3.7903981400044823`*^9, 3.790398177535123*^9}, {
+   3.7942492360807047`*^9, 3.794249236894485*^9}, {3.794252345019197*^9, 
+   3.7942523489778433`*^9}, {3.794252552342711*^9, 3.794252552595767*^9}},
+ CellLabel->"In[64]:=",ExpressionUUID->"1f0dbadf-39b3-49e0-8d60-739e3f825e32"]
+}, Open  ]]
+},
+WindowSize->{1440, 855},
+WindowMargins->{{0, Automatic}, {Automatic, 540}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 181, 3, 146, "Title",ExpressionUUID->"3b0bf973-b215-4e29-b926-12ec624fa3d6"],
+Cell[764, 27, 223, 5, 53, "Text",ExpressionUUID->"31457e8f-25bf-4b5a-9b09-392e1632e983"],
+Cell[990, 34, 175, 3, 53, "Text",ExpressionUUID->"d5e50ac2-4989-4b33-9449-caafff3a998b"],
+Cell[1168, 39, 534, 12, 41, "Input",ExpressionUUID->"109635e0-c0a5-4779-9888-8a11340b527b"],
+Cell[1705, 53, 288, 7, 53, "Text",ExpressionUUID->"9d08c347-b264-4ec5-8f1a-2fcbba3b44aa"],
+Cell[1996, 62, 671, 14, 92, "Input",ExpressionUUID->"b7132160-37b5-4f9c-bf36-01d1e528462c"],
+Cell[2670, 78, 454, 10, 157, "Text",ExpressionUUID->"eb38d7a9-2656-4b8e-8d34-7fe037732ad9"],
+Cell[3127, 90, 1306, 32, 67, "Input",ExpressionUUID->"1af4cd5c-2fc1-4330-ba70-9c8bbea141ca"],
+Cell[4436, 124, 163, 3, 53, "Text",ExpressionUUID->"a543ba05-02dd-4d4b-a106-4d09415af03d"],
+Cell[4602, 129, 381, 9, 41, "Input",ExpressionUUID->"87dc855f-dcf4-478d-ab1e-1bab645f090a"],
+Cell[4986, 140, 251, 6, 53, "Text",ExpressionUUID->"548f8fb0-b1e7-4f15-9b7a-236e9c056530"],
+Cell[5240, 148, 575, 13, 92, "Input",ExpressionUUID->"15b1e4ff-ed0a-4280-8d88-4f29562fa599"],
+Cell[5818, 163, 318, 7, 88, "Text",ExpressionUUID->"eb152075-340d-46b4-877c-66dc90cf03f5"],
+Cell[6139, 172, 2557, 63, 192, "Input",ExpressionUUID->"42a07cb3-5650-40c5-85ba-b06a5ab85f97"],
+Cell[8699, 237, 395, 11, 54, "Text",ExpressionUUID->"3d43ebc8-9750-4004-be52-51b7a09ed997"],
+Cell[9097, 250, 909, 20, 117, "Input",ExpressionUUID->"4d4a0206-4bf0-4990-aa66-d866b0bba240"],
+Cell[10009, 272, 243, 6, 53, "Text",ExpressionUUID->"72782387-daaf-433d-84f1-c6084d3c431b"],
+Cell[10255, 280, 1040, 23, 142, "Input",ExpressionUUID->"7b566ade-8311-4352-baae-0f94a8770d24"],
+Cell[11298, 305, 236, 6, 53, "Text",ExpressionUUID->"b63429d6-042c-48e6-a232-9103977e45fa"],
+Cell[11537, 313, 1665, 31, 192, "Input",ExpressionUUID->"0bc90499-135a-4e37-9593-8f4c9ad6c9ee"],
+Cell[13205, 346, 289, 6, 88, "Text",ExpressionUUID->"90ea7f98-c62e-4c4d-9aaa-989deb084155"],
+Cell[13497, 354, 868, 16, 117, "Input",ExpressionUUID->"1f0dbadf-39b3-49e0-8d60-739e3f825e32"]
+}, Open  ]]
+}
+]
+*)
+
