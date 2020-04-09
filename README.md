@@ -15,9 +15,10 @@ Copyright: (c)  2020 Jason Cantarella and Henrik Schumacher
 
 
 
-To load the package, use the `Get` command with the full path to the file _ConformalBarycenter.m_. 
+To load the package, make sure that a C-compiler is installed in your system and that _Mathematica_ recognizes it.
+Then use the `Get` command with the full path to the file _ConformalBarycenter.m_. 
 
-Alternatively, one may install the package by copying the file _ConformalBarycenter.m_ to the folder that Mathematica return upon evaluating
+Alternatively, one may install the package by copying the file _ConformalBarycenter.m_ to the folder that Mathematica returns upon evaluating
 
     FileNameJoin[{$UserBaseDirectory, "Applications"}]
 
