@@ -1,11 +1,39 @@
-cff-version: 1.0.0
-message: "If you use this software, please cite it as below."
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: ConformalBarycenter
+message: 'If you use this software, please cite it as below.'
+type: software
 authors:
-  - family-names: Cantarella
-    given-names: Jason
-  - family-names: Schumacher
-    given-names: Henrik
-    orcid: https://orcid.org/0000-0002-8700-5570
-title: "ConformalBarycenter"
-version: 1.0
-date-released: 2020-04-08
+  - given-names: Jason
+    family-names: Cantarella
+    affiliation: University of Georgia
+    orcid: 'https://orcid.org/0000-0002-0613-6131'
+  - given-names: Henrik
+    family-names: Schumacher
+    affiliation: RWTH Aachen University
+    orcid: 'https://orcid.org/0000-0002-8700-5570'
+repository-code: >-
+  https://github.com/HenrikSchumacher/ConformalBarycenter
+abstract: >-
+  A Mathematica package for
+
+
+  - computing conformal barycenters of spherical
+  point clouds;
+
+  - computing the conformal centralizations of
+  spherical points clouds,
+
+  - closing polygonal lines while preserving the edge
+  lengths; and
+
+  - computing Douady-Earle extensions of closed
+  curves into spheres
+
+
+  in two and three dimensions.
+keywords:
+  - 'conformal barycenter, polygon closure'
+license: MIT
