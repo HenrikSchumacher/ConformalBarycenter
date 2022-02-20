@@ -1,0 +1,11 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Cantarella
+    given-names: Jason
+  - family-names: Schumacher
+    given-names: Henrik
+    orcid: https://orcid.org/0000-0002-8700-5570
+title: "ConformalBarycenter"
+version: 1.0
+date-released: 2020-04-08
